@@ -7,30 +7,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
 import env from "@/env.js";
 
-export default {
-  setup() {
-    const movie = ref({});
-    const route = useRoute();
+const movie = ref({});
+const route = useRoute();
 
-    onBeforeMount(() => {
-      fetch(
-        `http://www.omdbapi.com/?apikey=${env.apikey}&i=${route.params.id}&plot=full`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          movie.value = data;
-        });
-    });
-    return {
-      movie,
-    };
-  },
-};
+onBeforeMount(async () => {
+  const response = await fetch(
+    `http://www.omdbapi.com/?apikey=${env.apikey}&i=${route.params.id}&plot=full`
+  )
+  movie.value = await response.json()
+});
 </script>
 
 <style lang="scss">
