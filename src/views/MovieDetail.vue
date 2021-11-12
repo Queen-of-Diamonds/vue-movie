@@ -15,14 +15,11 @@ import env from "@/env.js";
 const movie = ref({});
 const route = useRoute();
 
-onBeforeMount(() => {
-  fetch(
+onBeforeMount(async () => {
+  const response = await   fetch(
     `http://www.omdbapi.com/?apikey=${env.apikey}&i=${route.params.id}&plot=full`
   )
-    .then((response) => response.json())
-    .then((data) => {
-      movie.value = data;
-    });
+  movie.value = await response.json()
 });
 </script>
 
