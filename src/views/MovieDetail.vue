@@ -16,7 +16,7 @@ const movie = ref({});
 const route = useRoute();
 
 onBeforeMount(async () => {
-  const response = await   fetch(
+  const response = await fetch(
     `http://www.omdbapi.com/?apikey=${env.apikey}&i=${route.params.id}&plot=full`
   )
   movie.value = await response.json()
